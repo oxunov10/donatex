@@ -1,0 +1,84 @@
+// scripts.js
+
+// 🌐 Language Menu Toggle
+document.querySelector(".lang-icon").addEventListener("click", () => {
+  document.querySelector(".lang-menu").classList.toggle("active");
+});
+
+// 🌐 Language Switcher
+document.querySelectorAll(".lang-menu button").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const lang = e.target.getAttribute("data-lang");
+    changeLanguage(lang);
+  });
+});
+
+// 🈯 Change Language Function (Demo)
+function changeLanguage(lang) {
+  const translations = {
+    uz: {
+      heroTitle: "Donat qabul qiling. Oson.",
+      heroSubtitle: "Sahifangizni yaratib, daromad olishni boshlang.",
+      createBtn: "Sahifamni yaratish",
+    },
+    en: {
+      heroTitle: "Accept donations. Easily.",
+      heroSubtitle: "Create your page and start earning.",
+      createBtn: "Create My Page",
+    },
+    ru: {
+      heroTitle: "Принимайте донаты. Легко.",
+      heroSubtitle: "Создайте свою страницу и начните зарабатывать.",
+      createBtn: "Создать мою страницу",
+    },
+    tr: {
+      heroTitle: "Bağış alın. Kolayca.",
+      heroSubtitle: "Sayfanızı oluşturun ve kazanmaya başlayın.",
+      createBtn: "Sayfamı Oluştur",
+    },
+    es: {
+      heroTitle: "Recibe donaciones. Fácilmente.",
+      heroSubtitle: "Crea tu página y empieza a ganar.",
+      createBtn: "Crear mi página",
+    },
+    de: {
+      heroTitle: "Spenden erhalten. Einfach.",
+      heroSubtitle: "Erstellen Sie Ihre Seite und verdienen Sie Geld.",
+      createBtn: "Meine Seite erstellen",
+    },
+  };
+
+  const t = translations[lang];
+  if (!t) return;
+
+  document.querySelector(".hero h1").textContent = t.heroTitle;
+  document.querySelector(".hero p").textContent = t.heroSubtitle;
+  document.querySelector(".hero button").textContent = t.createBtn;
+}
+
+// 🔁 Animate Cards on Scroll
+const cards = document.querySelectorAll(".card");
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.style.transform = "translateY(0) scale(1.02)";
+      entry.target.style.opacity = "1";
+    }
+  });
+}, { threshold: 0.2 });
+
+cards.forEach((card) => {
+  card.style.opacity = "0";
+  card.style.transform = "translateY(20px)";
+  observer.observe(card);
+});
+
+// ⬇️ Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
